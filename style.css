@@ -1,0 +1,414 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #FFC0CB, #ADD8E6, #FFFFCC);
+    background-size: 400% 400%;
+    animation: wave-motion 15s ease infinite alternate;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@keyframes wave-motion {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Main content wrapper for scrolling */
+#main-content-wrapper {
+    width: 100%;
+    min-height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: flex-start;
+}
+
+/* Styles for the main header */
+.main-header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    background-color: transparent;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.main-header h1 {
+    font-size: 2.5em;
+    color: #ff69b4;
+}
+
+.main-header p {
+    font-size: 1.1em;
+}
+
+/* Countdown Section Styling */
+#countdown-section {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin: auto;
+    max-width: 600px;
+    width: 90%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#countdown-timer {
+    display: flex;
+    flex-direction: column; /* Change to vertical arrangement */
+    justify-content: center;
+    gap: 20px; /* Increase gap between units */
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    align-items: center;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 8px 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    width: 140px;
+    min-width: unset;
+    max-width: 100%;
+    text-align: center;
+    border: 2px solid #98FB98;
+    box-shadow: 0 0 10px 2px #98FB98;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.time-unit span {
+    font-size: 1.5em;
+    background: none;
+    color: #000;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.time-unit label {
+    font-size: 0.7em;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* Remove the old label hiding styles */
+.time-unit[data-unit]::after {
+    display: none;
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none !important;
+}
+
+/* Birthday Cards Container Styling */
+.birthday-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* Birthday Card Styling */
+.birthday-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+                filter 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+    filter: brightness(80%) grayscale(50%);
+    opacity: 0.8;
+}
+
+.birthday-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 15px 5px #FFD700,
+                0 15px 30px rgba(0, 0, 0, 0.2);
+    filter: brightness(100%) grayscale(0%);
+    opacity: 1;
+}
+
+/* Bright state when selected/active */
+.birthday-card.active {
+    filter: brightness(100%) grayscale(0%);
+    opacity: 1;
+    box-shadow: 0 0 20px 8px #FFD700,
+                0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-15px) scale(1.05);
+    z-index: 10;
+}
+
+/* Front of the card */
+.card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+    backface-visibility: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.card-front img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #ff69b4;
+}
+
+.card-front h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-front p {
+    color: #666;
+}
+
+/* Back of the card (initially hidden) */
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0s linear 0.5s;
+    overflow-y: auto;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Active state for card back */
+.birthday-card.active .card-front {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.birthday-card.active .card-back {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0s;
+    pointer-events: auto;
+}
+
+.card-back video {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: #000;
+}
+
+/* Style for embedded videos (e.g., YouTube iframe) */
+.card-back iframe {
+    width: 100%;
+    height: 200px;
+    max-height: 200px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: #000;
+    border: none;
+}
+
+
+.long-text-content {
+    color: #444;
+    line-height: 1.6;
+    flex-grow: 1;
+    min-height: 0;
+    padding-right: 5px;
+}
+
+.long-text-content p {
+    margin-bottom: 10px;
+}
+
+.message-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Scrollbar styling for .card-back */
+.card-back::-webkit-scrollbar {
+    width: 8px;
+}
+
+.card-back::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.card-back::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Styles to handle fading out other cards when one is active */
+body:has(.birthday-card.active) #main-content-wrapper > *:not(.birthday-cards-container),
+body:has(.birthday-card.active) .birthday-cards-container .birthday-card:not(.active) {
+    opacity: 0.2;
+    filter: brightness(50%) grayscale(80%);
+    pointer-events: none;
+}
+
+/* Easter Egg Styles */
+#easter-egg {
+    position: fixed;
+    left: -20px; /* Move closer to the very edge */
+    bottom: -20px; /* Move closer to the very bottom */
+    top: auto;
+    transform: rotate(25deg); /* Tilt to the right */
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(25deg); }
+    15% { transform: rotate(35deg); }
+    30% { transform: rotate(15deg); }
+    45% { transform: rotate(35deg); }
+    60% { transform: rotate(15deg); }
+    75% { transform: rotate(35deg); }
+    100% { transform: rotate(25deg); }
+}
+
+#easter-egg-image {
+    width: 60px;
+    height: auto;
+    opacity: 0.8;
+    pointer-events: auto;
+    border: none;
+    outline: none;
+}
+
+/* Easter Egg Popup Styles */
+#easter-egg-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-content {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#close-popup {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ff0000;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#close-popup:hover {
+    background: #cc0000;
+}
+
+.popup-content video {
+    width: 100%;
+    border-radius: 5px;
+}
